@@ -38,25 +38,25 @@ function HomeScreen({navigation}: any) {
         </ImageBackground>
         </View>
           <View style = {{flex:2, flexDirection: 'row', justifyContent: 'space-around', marginTop: 30}}>
-          <TouchableOpacity  activeOpacity={0.3} style = {{backgroundColor: 'rgba(141, 216, 239, 1)', borderRadius: 20, width: 100, height: 100, alignItems: 'center', justifyContent: 'center', marginBottom: 50}}  
+          <TouchableOpacity  activeOpacity={0.3} style = {{backgroundColor: 'rgba(141, 216, 239, 1)', borderRadius: 20, width: 85, height: 85, alignItems: 'center', justifyContent: 'center', marginBottom: 50}}  
             onPress={() => {navigation.navigate('SearchFestival')}}>
                 <Text style= {{fontFamily: 'BMHANNAPro'}}>
                   축제찾기
                   </Text>
           </TouchableOpacity>
-          <TouchableOpacity  activeOpacity={0.3} style = {{backgroundColor: 'rgba(141, 216, 239, 1)', borderRadius: 20, width: 100, height: 100, alignItems: 'center', justifyContent: 'center', marginBottom: 50}}  
+          <TouchableOpacity  activeOpacity={0.3} style = {{backgroundColor: 'rgba(141, 216, 239, 1)', borderRadius: 20, width: 85, height: 85, alignItems: 'center', justifyContent: 'center', marginBottom: 50}}  
             onPress={() => {navigation.navigate('SearchFestival')}}>
                 <Text style= {{fontFamily: 'BMHANNAPro'}}>
                   축제찾기
                   </Text>
           </TouchableOpacity>
-          <TouchableOpacity  activeOpacity={0.3} style = {{backgroundColor: 'rgba(141, 216, 239, 1)', borderRadius: 20, width: 100, height: 100, alignItems: 'center', justifyContent: 'center', marginBottom: 50}}  
+          <TouchableOpacity  activeOpacity={0.3} style = {{backgroundColor: 'rgba(141, 216, 239, 1)', borderRadius: 20, width: 85, height: 85, alignItems: 'center', justifyContent: 'center', marginBottom: 50}}  
             onPress={() => {navigation.navigate('SearchFestival')}}>
                 <Text style= {{fontFamily: 'BMHANNAPro'}}>
                   축제찾기
                   </Text>
           </TouchableOpacity>
-          <TouchableOpacity  activeOpacity={0.3} style = {{backgroundColor: 'rgba(141, 216, 239, 1)', borderRadius: 20, width: 100, height: 100, alignItems: 'center', justifyContent: 'center', marginBottom: 50}}  
+          <TouchableOpacity  activeOpacity={0.3} style = {{backgroundColor: 'rgba(141, 216, 239, 1)', borderRadius: 20, width: 85, height: 85, alignItems: 'center', justifyContent: 'center', marginBottom: 50}}  
             onPress={() => {navigation.navigate('SearchFestival')}}>
                 <Text style= {{fontFamily: 'BMHANNAPro'}}>
                   축제찾기
@@ -81,7 +81,7 @@ function HomeScreen({navigation}: any) {
             우리학교 축제
           </Text>
           <View style = {{width: 300, height: 200, backgroundColor: 'green',marginLeft: 10, marginBottom: 40}}>
-            <Text style = {{color: "white"}}>
+            <Text style = {{color: "white", fontFamily: 'BMHANNAPro'}}>
                 DGIST
             </Text>
           </View>

@@ -16,9 +16,11 @@ function Univdetail(route: any) {
   const set2 = [info[0].학교명,info[0].전화번호,info[0].주소,info[0].우편번호,info[0].홈페이지]
   return (
     <View >
+      <View style = {{paddingBottom: 30}}>
           <Text style = {{justifyContent: 'center', alignSelf: 'center',fontFamily: 'BMHANNAPro' ,fontSize: 50 }}>
             학교정보
           </Text>
+      </View>
           
           {set1.map((item,index) => (
           <View key = {index} style = {{flexDirection: 'row'}}>

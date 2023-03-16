@@ -2,6 +2,9 @@ import React, { useCallback, useState } from 'react';
 import {Image, StyleSheet, Text, View, Linking, Alert, ScrollView, Button, TouchableOpacity} from 'react-native';
 import {Card} from '@rneui/base';
 import { Link } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/reducer';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 
 function UnivInfo(route: any) {
@@ -11,14 +14,28 @@ function UnivInfo(route: any) {
   const location = univ.location;
   const time = univ.time;
   const urllink = univ.link;
+  const isLogin = useSelector((state: RootState) => !!state.user.email);
+  
+  const [isLiked, setIsLiked] = useState(false);
 
-  
-  
+  const handlePress = () => {
+    if (isLogin){
+      setIsLiked(!isLiked)
+      
+    }
+    else {
+      Alert.alert("로그인 후 이용 가능한 기능입니다.")
+      console.log("로그인 후 이용 가능한 기능입니다.")
+    }
+    // setIsLiked(!isLiked);
+  };
+
+
   const set1 = ['대학이름', '장소     ', '일시     ']
   const set2 = [univname,location,time];
   const [count,setcount] = useState(5);
-  
-  
+
+  const a = 1;
   const celeblist = univ.celeb.map((k : string, idx: any)  => {
   
     let content = k;
@@ -41,6 +58,15 @@ function UnivInfo(route: any) {
         marginBottom: 30}}
         source={require('../../assets/dgist_image.jpg')}
       />
+      <View style = {{marginBottom: 30, marginLeft: 30}}>
+      <TouchableOpacity onPress={handlePress}>
+        {isLiked ? (
+          <Icon name="heart" size={30} color="#f00" />
+        ) : (
+          <Icon name="heart-o" size={30} color="#ccc" />
+        )}
+      </TouchableOpacity>
+    </View>
         {set1.map((item,index) => (
           <View key = {index} style = {{flexDirection: 'row'}}>
           <Text style = {{marginLeft: 50,fontFamily: 'BMHANNAPro' ,fontSize: 15}}>
@@ -69,13 +95,13 @@ function UnivInfo(route: any) {
       
       
          <View style = {{flex:2, flexDirection: 'row', justifyContent: 'space-around', marginTop: 30}}>
-          <TouchableOpacity  activeOpacity={0.3} style = {{backgroundColor: 'rgba(141, 216, 239, 1)', borderRadius: 20, width: 100, height: 100, alignItems: 'center', justifyContent: 'center', marginBottom: 50}}  
+          <TouchableOpacity  activeOpacity={0.3} style = {{backgroundColor: 'rgba(141, 216, 239, 1)', borderRadius: 20, width: 85, height: 85, alignItems: 'center', justifyContent: 'center', marginBottom: 50}}  
             onPress={() => {Alert.alert("맵")}}>
                 <Text style= {{fontFamily: 'BMHANNAPro'}}>
                   지도
                   </Text>
           </TouchableOpacity>
-          <TouchableOpacity  activeOpacity={0.3} style = {{backgroundColor: 'rgba(141, 216, 239, 1)', borderRadius: 20, width: 100, height: 100, alignItems: 'center', justifyContent: 'center', marginBottom: 50}}  
+          <TouchableOpacity  activeOpacity={0.3} style = {{backgroundColor: 'rgba(141, 216, 239, 1)', borderRadius: 20, width: 85, height: 85, alignItems: 'center', justifyContent: 'center', marginBottom: 50}}  
           onPress = {() => {
             route.navigation.navigate('Boothpage',{univinfo: univ})
            }}>
@@ -83,13 +109,13 @@ function UnivInfo(route: any) {
                   부스
                   </Text>
           </TouchableOpacity>
-          <TouchableOpacity  activeOpacity={0.3} style = {{backgroundColor: 'rgba(141, 216, 239, 1)', borderRadius: 20, width: 100, height: 100, alignItems: 'center', justifyContent: 'center', marginBottom: 50}}  
+          <TouchableOpacity  activeOpacity={0.3} style = {{backgroundColor: 'rgba(141, 216, 239, 1)', borderRadius: 20, width: 85, height: 85, alignItems: 'center', justifyContent: 'center', marginBottom: 50}}  
             onPress={() => {route.navigation.navigate("Univdetail", {univinfo:univ})}}>
                 <Text style= {{fontFamily: 'BMHANNAPro'}}>
                   학교정보
                   </Text>
           </TouchableOpacity>
-          <TouchableOpacity  activeOpacity={0.3} style = {{backgroundColor: 'rgba(141, 216, 239, 1)', borderRadius: 20, width: 100, height: 100, alignItems: 'center', justifyContent: 'center', marginBottom: 50}}  
+          <TouchableOpacity  activeOpacity={0.3} style = {{backgroundColor: 'rgba(141, 216, 239, 1)', borderRadius: 20, width: 85, height: 85, alignItems: 'center', justifyContent: 'center', marginBottom: 50}}  
             onPress = {async()=> {
               try {
                 await Linking.openURL(`https://${urllink}`);
