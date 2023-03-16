@@ -1,10 +1,12 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {Image, StyleSheet, Text, View, Linking, Alert, ScrollView, Button, TouchableOpacity} from 'react-native';
 import {Card} from '@rneui/base';
 import { Link } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/reducer';
+import axios from 'axios';
+import Config from 'react-native-config';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 
 function UnivInfo(route: any) {
@@ -15,19 +17,68 @@ function UnivInfo(route: any) {
   const time = univ.time;
   const urllink = univ.link;
   const isLogin = useSelector((state: RootState) => !!state.user.email);
-  
-  const [isLiked, setIsLiked] = useState(false);
+  const email = useSelector((state: RootState) => state.user.email);
+
+  const [refresh, setrefresh] = useState(0);
+  const [heartcount, setheartcount] = useState("");
+  useEffect(()=> {
+    const fetchdata = async() => {
+      console.log('fetchdata');
+      try {
+        const response = await axios.post(`${Config.API_URL}/api/univ/heartcount`,
+        {univname})
+      // console.log("result")
+      console.log(response.data)
+      setheartcount(response.data);
+      }
+      catch(error) {
+        console.log(error)
+      }
+      
+    }
+    const fetchheart = async() => {
+      console.log("fetchheart");
+      try {
+        const response = await axios.post(`${Config.API_URL}/api/univ/heartfind`,
+        {univname, email})
+        console.log(response.data.heart.length)
+        if(response.data.heart.length !=0){
+          setIsLiked(true);
+        }
+        else {
+          setIsLiked(false);
+        }
+
+      }
+      catch(error){
+        console.log(error)
+      }
+    }
+    fetchdata();
+    if (isLogin){
+      fetchheart()
+    }
+  },[setrefresh])
+
+
+  const [isLiked, setIsLiked] = useState(true);
 
   const handlePress = () => {
     if (isLogin){
-      setIsLiked(!isLiked)
-      
-    }
+      // setIsLiked(!isLiked)
+      const response = axios.post(`${Config.API_URL}/api/univ/heartchange`, {
+        univname,email
+      })
+        
+      }
+    
+    
     else {
       Alert.alert("로그인 후 이용 가능한 기능입니다.")
       console.log("로그인 후 이용 가능한 기능입니다.")
     }
     // setIsLiked(!isLiked);
+    setrefresh(refresh+1);
   };
 
 
@@ -35,7 +86,6 @@ function UnivInfo(route: any) {
   const set2 = [univname,location,time];
   const [count,setcount] = useState(5);
 
-  const a = 1;
   const celeblist = univ.celeb.map((k : string, idx: any)  => {
   
     let content = k;
@@ -58,14 +108,20 @@ function UnivInfo(route: any) {
         marginBottom: 30}}
         source={require('../../assets/dgist_image.jpg')}
       />
-      <View style = {{marginBottom: 30, marginLeft: 30}}>
+      <View style = {{marginBottom: 30, marginLeft: 30, flexDirection: 'row'}}>
       <TouchableOpacity onPress={handlePress}>
         {isLiked ? (
           <Icon name="heart" size={30} color="#f00" />
-        ) : (
+        ) : 
+          (
           <Icon name="heart-o" size={30} color="#ccc" />
         )}
       </TouchableOpacity>
+      <View style ={{marginLeft: 30, marginTop: 10 }}>
+      <Text style = {{ fontFamily: 'BMHANNAPro' ,fontSize: 10}}>
+        {heartcount} 명이 축제를 좋아합니다.
+      </Text>
+      </View>
     </View>
         {set1.map((item,index) => (
           <View key = {index} style = {{flexDirection: 'row'}}>
