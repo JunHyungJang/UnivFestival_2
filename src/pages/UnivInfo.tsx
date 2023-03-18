@@ -20,7 +20,7 @@ function UnivInfo(route: any) {
   const email = useSelector((state: RootState) => state.user.email);
 
   const [refresh, setrefresh] = useState(0);
-  const [heartcount, setheartcount] = useState("");
+  const [heartcount, setheartcount] = useState(0);
   useEffect(()=> {
     const fetchdata = async() => {
       console.log('fetchdata');
@@ -29,6 +29,7 @@ function UnivInfo(route: any) {
         {univname})
       // console.log("result")
       console.log(response.data)
+      // console.log(typeof response.data)
       setheartcount(response.data);
       }
       catch(error) {
@@ -61,18 +62,25 @@ function UnivInfo(route: any) {
   },[setrefresh])
 
 
-  const [isLiked, setIsLiked] = useState(true);
+  const [isLiked, setIsLiked] = useState(false);
 
-  const handlePress = () => {
+  const handlePress = async() => {
     if (isLogin){
-      // setIsLiked(!isLiked)
-      const response = axios.post(`${Config.API_URL}/api/univ/heartchange`, {
+      const response = await axios.post(`${Config.API_URL}/api/univ/heartchange`, {
         univname,email
       })
+      console.log(response.data.message)
+
+      if (response.data.message == "delete") {
+        setIsLiked(false);
+        setheartcount(heartcount-1)
+      }
+      if (response.data.message == "insert") {
+        setIsLiked(true);
+        setheartcount(heartcount+1)
+      }
         
       }
-    
-    
     else {
       Alert.alert("로그인 후 이용 가능한 기능입니다.")
       console.log("로그인 후 이용 가능한 기능입니다.")
