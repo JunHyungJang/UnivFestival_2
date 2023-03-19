@@ -97,7 +97,6 @@ function SearchFestival({navigation}: any) {
                   {item}
                 </Text>
               </View>
-              {/* <View style={{ borderBottomWidth: 1, borderBottomColor: 'black' ,marginLeft: 10 }} /> */}
             </Pressable>
             
           )}/>

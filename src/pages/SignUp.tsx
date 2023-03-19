@@ -4,15 +4,23 @@ import React, {useCallback, useState} from 'react';
 import {
   ActivityIndicator,
   Alert,
+  FlatList,
+  Keyboard,
   Platform,
   Pressable,
+  SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import Config from 'react-native-config';
+import { ScrollView } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import RootStackParamList from '../../AppInner';
+import SearchFestival from './SearchFestival';
 
 // type SignUpScreenProps = NativeStackScreenProps<RootStackParamList, 'SignUp'>;
 
@@ -21,6 +29,15 @@ function SignUp({navigation}: any) {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [univ, setuniv] = useState('');
+    const renderItem = ({item} : any) => {
+      return (
+        <TouchableOpacity onPress={() => (Alert.alert('item'))}>
+          <Text>{item}</Text>
+        </TouchableOpacity>
+      )
+    }
+  
+
   const onChangeEmail = useCallback((text: string) => {
     setEmail(text.trim());
   }, []);
@@ -63,8 +80,38 @@ function SignUp({navigation}: any) {
   }, [email, name, password]);
 
   const canGoNext = email && name && password && univ;
-  
+
+
+  //Searchpage copy
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [data, setdata] = useState([])
+
+
+
+  const updateSearch = (search: string) => {
+    getname(search)
+    setuniv(search)
+    
+  };
+
+
+  const getname = useCallback(async (univ:any) => {
+      try {
+        const response = await axios.post(`${Config.API_URL}/api/univ/getunivname`, {
+          univ
+        });
+        setdata(response.data.arrdata);
+        
+      }
+      catch(error){
+        console.log(error)
+      }
+  },[])
+
+
+
   return (
+  
     <View>
       <View style={styles.inputWrapper}>
         <Text style={styles.label}>이메일</Text>
@@ -100,19 +147,41 @@ function SignUp({navigation}: any) {
       </View>
       <View style={styles.inputWrapper}>
         <Text style={styles.label}>대학명</Text>
-        <TextInput
-          style={styles.textInput}
-          placeholder="대학을 입력해주세요."
-          placeholderTextColor="#666"
-          onChangeText={onChangeUniv}
-          value={univ}
-          textContentType="name"
-          returnKeyType="next"
-          clearButtonMode="while-editing"
-          //   ref={nameRef}
-          //   onSubmitEditing={() => passwordRef.current?.focus()}
-          blurOnSubmit={false}
-        />
+        </View>
+        <View style = {{display: 'flex', flexDirection: 'row', marginLeft: 10, marginBottom: 20}} >
+       <TouchableWithoutFeedback onPress={() =>Keyboard.dismiss}>
+        <SafeAreaView style = {{flex : 1}}>
+            <TextInput
+            placeholder='입력해주세요'
+            onChangeText={updateSearch}
+            style ={{
+                height: 40,
+                marginHorizontal: 12,
+                borderWidth: 1,
+                paddingHorizontal: 10,
+                borderRadius: 5,
+            }} 
+            value = {univ}/>
+           <FlatList
+           data = {data}
+           renderItem = {({item,index}) => (
+            <Pressable onPress={()=> {
+              setuniv(item)
+              setdata([])
+            }}>
+              <View style = {{flexDirection: 'row',alignItems: 'center',padding: 15, marginLeft: 10 }}>
+              <Icon name = "school" size={30}/>
+                <Text style = {{marginLeft: 10, fontFamily: 'BMHANNAPro'}}>
+                  {item}
+                </Text>
+              </View>
+            </Pressable>
+            
+          )}/>
+            
+            
+        </SafeAreaView>
+    </TouchableWithoutFeedback> 
       </View>
       <View style={styles.inputWrapper}>
         <Text style={styles.label}>비밀번호</Text>
@@ -144,6 +213,7 @@ function SignUp({navigation}: any) {
         </Pressable>
       </View>
     </View>
+
   );
 }
 
