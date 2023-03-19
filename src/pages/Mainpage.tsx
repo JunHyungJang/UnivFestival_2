@@ -67,7 +67,6 @@ const url_android = "http://10.0.2.2:5000"
 
 function MainPage() {
   
-  // logout const isLogin = useSelector((state: RootState) => !!state.user.email);
     const accessToken = useSelector((state: RootState) => state.user.accessToken);
     const dispatch = useAppDispatch();
 
@@ -78,7 +77,7 @@ function MainPage() {
       
       try {
         console.log('front logout');
-        await axios.post(`${url_ios}/api/users/logout`, {
+        await axios.post(`${Config.API_URL}/api/users/logout`, {
           accessToken,
         });
         Alert.alert('알림', '로그아웃 되었습니다.');
