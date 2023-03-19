@@ -29,13 +29,6 @@ function SignUp({navigation}: any) {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [univ, setuniv] = useState('');
-    const renderItem = ({item} : any) => {
-      return (
-        <TouchableOpacity onPress={() => (Alert.alert('item'))}>
-          <Text>{item}</Text>
-        </TouchableOpacity>
-      )
-    }
   
 
   const onChangeEmail = useCallback((text: string) => {
@@ -124,8 +117,7 @@ function SignUp({navigation}: any) {
           value={email}
           returnKeyType="next"
           clearButtonMode="while-editing"
-          //   ref={emailRef}
-          //   onSubmitEditing={() => nameRef.current?.focus()}
+       
           blurOnSubmit={false}
         />
       </View>
@@ -140,8 +132,7 @@ function SignUp({navigation}: any) {
           textContentType="name"
           returnKeyType="next"
           clearButtonMode="while-editing"
-          //   ref={nameRef}
-          //   onSubmitEditing={() => passwordRef.current?.focus()}
+    
           blurOnSubmit={false}
         />
       </View>
