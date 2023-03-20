@@ -22,8 +22,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import RootStackParamList from '../../AppInner';
 import SearchFestival from './SearchFestival';
 
-// type SignUpScreenProps = NativeStackScreenProps<RootStackParamList, 'SignUp'>;
-
 function SignUp({navigation}: any) {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');

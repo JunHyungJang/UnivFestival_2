@@ -1,6 +1,6 @@
 // main page
 
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {Component, useCallback, useEffect, useState} from 'react';
 import {
   Text,
   View,
@@ -28,6 +28,7 @@ import Univdetail from './Univdetail';
 import Boothmake from './Boothmake';
 import Boothdetail from './Boothdetail';
 import Mybooth from './Mybooth';
+import Changepassword from './Changepassword';
 
 
 export type RootStackParamList = {
@@ -41,6 +42,7 @@ export type RootStackParamList = {
   Boothmake: undefined;
   Boothdetail: undefined;
   Mybooth: undefined;
+  Changepassword : undefined;
 };
 export type LoggedInParamList = {
   HomeScreen: undefined;
@@ -52,9 +54,7 @@ export type LoggedInParamList = {
   Boothmake: undefined;
   Boothdetail: undefined;
   Mybooth: undefined;
-
-
-
+  Changepassword : undefined
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -162,6 +162,7 @@ function MainPage() {
       <Stack.Screen name= "Boothmake" options = {{title: '부스만들기'}} component={Boothmake} />
       <Stack.Screen name= "Boothdetail" options = {{title: '부스세부정보'}} component={Boothdetail}/>
       <Stack.Screen name= "Mybooth" options = {{title: '내 부스'}} component={Mybooth}/>
+      <Stack.Screen name = "Changepassword" options = {{title: '비밀번호변경'}} component={Changepassword}/>
 
 
     </Stack.Navigator>

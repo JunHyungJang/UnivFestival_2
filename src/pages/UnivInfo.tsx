@@ -8,20 +8,32 @@ import { RootState } from '../store/reducer';
 import axios from 'axios';
 import Config from 'react-native-config';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
+import images from './images';
 
 function UnivInfo(route: any) {
   const univ = route.route.params.univinfo;
-
-  const univname = univ.name;
+    const univname = univ.name
+    
   const location = univ.location;
   const time = univ.time;
   const urllink = univ.link;
   const isLogin = useSelector((state: RootState) => !!state.user.email);
   const email = useSelector((state: RootState) => state.user.email);
 
+  const [urluniv,seturluniv] = useState('')
+
+  const imageURL = Object.values(images).find(imagePath => imagePath.includes(univname));
+
+  console.log("url")
+  console.log(imageURL)
+  // const imageURL = `file://Users/jangjungi/Desktop/Univ_festival_2/UnivFestival_2/assets/univimage/${univname}`
+  // console.log(imageURL)
+
   const [refresh, setrefresh] = useState(0);
   const [heartcount, setheartcount] = useState(0);
   useEffect(()=> {
+    seturluniv(univname)
+    // imageURL = `../../assets/univimage/${urluniv}.jpg`
     const fetchdata = async() => {
       console.log('fetchdata');
       try {
@@ -114,7 +126,7 @@ function UnivInfo(route: any) {
         justifyContent: 'center',
         marginTop: 30,
         marginBottom: 30}}
-        source={require('../../assets/dgist_image.jpg')}
+        // source= {require(imageURL)}
       />
       <View style = {{marginBottom: 30, marginLeft: 30, flexDirection: 'row'}}>
       <TouchableOpacity onPress={handlePress}>

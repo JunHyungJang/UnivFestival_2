@@ -27,7 +27,13 @@ function SettingScreen({navigation}: any) {
         <Text style = {{fontSize: 30,fontFamily: 'BMHANNAPro'}}> {univ}</Text>
         {/* <Text>hello</Text> */}
       </View>
-      <View style = {{marginTop: 40, justifyContent: 'center', alignItems: 'center'}}>
+      <View style = {{marginTop: 40, justifyContent: 'space-around', alignItems: 'center', flexDirection: 'row'}}>
+      <TouchableOpacity activeOpacity={0.2} 
+        style = {{width:100, height: 40, backgroundColor: 'rgba(141, 216, 239, 1)', justifyContent: 'center', alignItems: 'center', borderRadius: 20}} onPress = {()=> navigation.navigate("Changepassword") }>
+        <Text style = {{fontFamily: 'BMHANNAPro'}}>
+          비밀번호 변경
+        </Text>
+      </TouchableOpacity>
       <TouchableOpacity activeOpacity={0.2} 
         style = {{width:100, height: 40, backgroundColor: 'rgba(141, 216, 239, 1)', justifyContent: 'center', alignItems: 'center', borderRadius: 20}} onPress = {()=> navigation.navigate("Mybooth") }>
         <Text style = {{fontFamily: 'BMHANNAPro'}}>

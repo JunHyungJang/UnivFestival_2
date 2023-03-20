@@ -77,7 +77,7 @@ function Boothmake(route: any) {
       }
       console.log(boothname)
       const sendapi = async() => 
-      {try {
+    {try {  
         const response = await axios.post(`${Config.API_URL}/api/univ/addbooth`,{
           newlist 
         });
