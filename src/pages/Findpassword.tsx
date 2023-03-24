@@ -24,13 +24,16 @@ import RootStackParamList from '../../AppInner';
 import { RootState } from '../store/reducer';
 import SearchFestival from './SearchFestival';
 
-function Changepassword({navigation}: any) {
+function Findpassword({navigation}: any) {
 
   const [password, setPassword] = useState('');
   const [confirmpassword,setconfirmpassword] = useState('');
-  const email = useSelector((state: RootState) => state.user.email);
+  const [email,setemail] = useState('');
 
-  
+  const onChangeemail = (text:string) => {
+    console.log(text)
+    setemail(text)
+  }
 
   const onChangePassword = (text: string) => {
     console.log(text)
@@ -43,18 +46,13 @@ function Changepassword({navigation}: any) {
   }
 
   const onSubmit = async () => {
-    console.log(password,confirmpassword)
+    if(!(email&&password)) {
+      Alert.alert('이메일과 패스워드를 입력해주세요')
+    }
     if (password !== confirmpassword) {
       return Alert.alert('알림', '비밀번호를 다시 확인해주세요.');
     }
   
-    
-    // const response = await axios.post(`${Config.API_URL}/api/users/register`, {
-    //   email,
-    //   name,
-    //   password,
-    //   univ,
-    // });
     const response = await axios.post(`${Config.API_URL}/api/users/changepassword`, {
         password,
         email
@@ -73,7 +71,23 @@ function Changepassword({navigation}: any) {
   return (
   
     <View>
-      
+       <View style={styles.inputWrapper}>
+        <Text style={styles.label}>이메일</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder="이메일을 입력해주세요(영문,숫자,특수문자)"
+          placeholderTextColor="#666"
+          onChangeText={onChangeemail}
+          value={email}
+          keyboardType={Platform.OS === 'android' ? 'default' : 'ascii-capable'}
+          textContentType="password"
+          secureTextEntry
+          returnKeyType="send"
+          clearButtonMode="while-editing"
+          //   ref={passwordRef}
+          onSubmitEditing={onSubmit}
+        />
+      </View>
       <View style={styles.inputWrapper}>
         <Text style={styles.label}>새 비밀번호</Text>
         <TextInput
@@ -155,4 +169,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Changepassword;
+export default Findpassword;

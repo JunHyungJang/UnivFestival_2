@@ -29,6 +29,7 @@ import Boothmake from './Boothmake';
 import Boothdetail from './Boothdetail';
 import Mybooth from './Mybooth';
 import Changepassword from './Changepassword';
+import Findpassword from './Findpassword';
 
 
 export type RootStackParamList = {
@@ -43,6 +44,7 @@ export type RootStackParamList = {
   Boothdetail: undefined;
   Mybooth: undefined;
   Changepassword : undefined;
+  Findpassword: undefined;
 };
 export type LoggedInParamList = {
   HomeScreen: undefined;
@@ -54,7 +56,9 @@ export type LoggedInParamList = {
   Boothmake: undefined;
   Boothdetail: undefined;
   Mybooth: undefined;
-  Changepassword : undefined
+  Changepassword : undefined;
+  Findpassword: undefined;
+
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -111,7 +115,7 @@ function MainPage() {
              
                   <TouchableOpacity activeOpacity={0.3} style= {{backgroundColor: 'rgba(200, 48, 130, 0.42)', borderRadius: 20, width: 80, height: 40, alignItems: 'center', justifyContent: 'center'}}
                   onPress = {()=>{onLogout()}}>
-                    <Text>
+                    <Text style = {{fontFamily: 'BMHANNAPro'}}>
                       로그아웃
                     </Text>
                   </TouchableOpacity>
@@ -163,6 +167,8 @@ function MainPage() {
       <Stack.Screen name= "Boothdetail" options = {{title: '부스세부정보'}} component={Boothdetail}/>
       <Stack.Screen name= "Mybooth" options = {{title: '내 부스'}} component={Mybooth}/>
       <Stack.Screen name = "Changepassword" options = {{title: '비밀번호변경'}} component={Changepassword}/>
+      <Stack.Screen name = "Findpassword" options = {{title: '비밀번호찾기'}} component={Findpassword}/>
+
 
 
     </Stack.Navigator>

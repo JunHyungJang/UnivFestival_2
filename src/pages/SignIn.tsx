@@ -8,12 +8,14 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import axios, {AxiosError} from 'axios';
 import Config from 'react-native-config';
 import {useAppDispatch} from '../store';
 import userSlice from '../slices/user';
+import Findpassword from './Findpassword';
 
 function SignIn({navigation}: any) {
   
@@ -75,7 +77,7 @@ function SignIn({navigation}: any) {
 
   return (
     <View>
-      <View style={styles.inputWrapper}>
+      <View style={{padding: 20}}>
         <Text style={styles.label}>이메일</Text>
         <TextInput
           style={styles.textInput}
@@ -108,22 +110,36 @@ function SignIn({navigation}: any) {
           onSubmitEditing={onSubmit}
         />
       </View>
-      <View style={styles.buttonZone}>
-        <Pressable
-          style={
-            canGoNext
-              ? StyleSheet.compose(styles.loginButton, styles.loginButtonActive)
-              : styles.loginButton
-          }
-          disabled={!canGoNext}
-          onPress={onSubmit}>
-          <Text style={styles.loginButtonText}>로그인</Text>
-        </Pressable>
-        <Pressable onPress={toSignUp}>
-          <Text>회원가입하기</Text>
-        </Pressable>
+     
+        
+        <View style = {{flexDirection: 'row', justifyContent: 'space-evenly'}}>
+        <TouchableOpacity  activeOpacity={0.3} style = {{ backgroundColor: 'rgba(141, 216, 239, 1)', borderRadius: 20, width: 100, height: 60, alignItems: 'center', justifyContent: 'center', marginBottom: 50}}  
+            onPress={onSubmit}>
+                <Text style= {{fontFamily: 'BMHANNAPro'}}>
+                  로그인
+                  </Text>
+          </TouchableOpacity>
+          <View style = {{ flexDirection: 'row', justifyContent: 'center'}}>
+            <TouchableOpacity  activeOpacity={0.3} style = {{ borderRadius: 20, width: 100, height: 60, alignItems: 'center', justifyContent: 'center', marginBottom: 50}}  
+              onPress={toSignUp}>
+                  <Text style= {{fontFamily: 'BMHANNAPro'}}>
+                    회원가입하기
+                    </Text>
+            </TouchableOpacity>
+            <Text>
+            </Text>
+            <TouchableOpacity  activeOpacity={0.3} style = {{ borderRadius: 20, width: 100, height: 60, alignItems: 'center', justifyContent: 'center', marginBottom: 50}}  
+              onPress={()=> navigation.navigate('Findpassword')}>
+                  <Text style= {{fontFamily: 'BMHANNAPro'}}>
+                    비밀번호 찾기
+                    </Text>
+            </TouchableOpacity>
+          
+          </View>
+       
+          </View>
       </View>
-    </View>
+    
   );
 }
 
