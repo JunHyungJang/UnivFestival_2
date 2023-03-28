@@ -16,11 +16,15 @@ import Config from 'react-native-config';
 function Boothpage(route: any) {
   
   const isLogin = useSelector((state: RootState) => !!state.user.email);
+  const useruniv = useSelector((state:RootState) => state.user.univ)
+
 
   const univinfo = route.route.params.univinfo
   const univ = univinfo.name;
+  
   const [listitem,setlistitem] = useState([])
   useEffect(()=> {
+    
     const fetchdata = async() => {
     try {
       const response = await axios.post(`${Config.API_URL}/api/univ/getboothinfo`, {
@@ -64,11 +68,15 @@ function Boothpage(route: any) {
     borderRadius:20, width: 80, height: 40, alignItems: 'center', justifyContent: 'center'}}  
             onPress={() => {
               if (isLogin) {
+                if (useruniv == univ){
                 route.navigation.navigate('Boothmake', {listitem: listitem, univ: univ})
+                }
+                else {Alert.alert("해당학교의 대학생만 이용 가능합니다.")}
+                // route.navigation.navigate('SignUp')
               }
               else {
                 Alert.alert("로그인후 이용이 가능합니다");
-                route.navigation.navigation('SignUp');
+                route.navigation.navigate('SignUp');
               }
               }}>
       <Text style= {{fontFamily: 'BMHANNAPro'}}>

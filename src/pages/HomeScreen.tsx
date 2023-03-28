@@ -119,9 +119,11 @@ function HomeScreen({navigation}: any) {
           {[...Array(viewCount)].map((item,index) =>(
             <TouchableOpacity onPress={()=> {
               const fetchdata = async() => {
+                console.log(recommendfest[index])
                 const response = await axios.post(`${Config.API_URL}/api/univ/search`, {
                   univ: recommendfest[index],
                 });
+                console.log("data result",response.data.result)
                 navigation.navigate('UnivInfo', {univinfo: response.data.result});
   
               }

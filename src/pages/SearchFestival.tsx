@@ -34,14 +34,16 @@ function SearchFestival({navigation}: any) {
   const [selectedItem, setSelectedItem] = useState(null);
   const [data, setdata] = useState([])
 
+  
   const updateSearch = (search: string) => {
     setsearch(search);
     getname(search)
+    console.log(search)
     
   };
 
   const getuniv = useCallback(async (univ: any) => {
-
+    console.log("getuni", univ)
     try {
       const response = await axios.post(`${Config.API_URL}/api/univ/search`, {
         univ,
@@ -51,7 +53,7 @@ function SearchFestival({navigation}: any) {
         console.log(response.data.message);
         Alert.alert('해당 대학이 존재하지 않습니다.');
       } else if (response.data.success == true) {
-       
+        console.log(response.data.result)
         navigation.navigate('UnivInfo', {univinfo: response.data.result});
       }
     } catch (error) {

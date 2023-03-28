@@ -13,7 +13,8 @@ import Config from 'react-native-config';
 
 function UnivInfo(route: any) {
   const univ = route.route.params.univinfo;
-    const univname = univ.name
+  const univname = univ.name
+  console.log(univname)
     
   const location = univ.location;
   const time = univ.time;
@@ -21,21 +22,10 @@ function UnivInfo(route: any) {
   const isLogin = useSelector((state: RootState) => !!state.user.email);
   const email = useSelector((state: RootState) => state.user.email);
   
-  // console.log
+ 
   const [urluniv,seturluniv] = useState('')
 
   
-  // const imagesource = require(`../../assets/univimage/${univname}.jpg`)
-  //   const kk : any = [
-  //   {
-  //     university: '대구경북과학기술원',
-  //     univurl : require('../../assets/univimage/대구경북과학기술원.jpg')
-  //   } 
-  // ]
-
-  
-  // const imageURL = `file://Users/jangjungi/Desktop/Univ_festival_2/UnivFestival_2/assets/univimage/${univname}`
-  // console.log(imageURL)
 
   const [refresh, setrefresh] = useState(0);
   const [heartcount, setheartcount] = useState(0);
@@ -84,6 +74,14 @@ function UnivInfo(route: any) {
 
   const [isLiked, setIsLiked] = useState(false);
 
+
+  const [errork, setErrork] = useState(false);
+
+  const handleImageError = () => {
+    setErrork(true);
+  }
+
+
   const handlePress = async() => {
     if (isLogin){
       const response = await axios.post(`${Config.API_URL}/api/univ/heartchange`, {
@@ -129,15 +127,20 @@ function UnivInfo(route: any) {
   return (
     <ScrollView>
     <View >
+      {!errork ? (
       <Image
         style={{ alignSelf: 'center',
         justifyContent: 'center',
         marginTop: 30,
-        marginBottom: 30,}
+        marginBottom: 30,
+        height: 250,
+        width: 250}
         }
-        // source = {imagesource}
-        
-      />
+        source = {{uri :`http://13.125.224.160:5000/univimage/${univname}.jpg`}}
+         onError={handleImageError}
+      /> ) : (
+        <Text> 오류가발생하였습니다</Text>
+      )}
       <View style = {{marginBottom: 30, marginLeft: 30, flexDirection: 'row'}}>
       <TouchableOpacity onPress={handlePress}>
         {isLiked ? (
@@ -182,7 +185,7 @@ function UnivInfo(route: any) {
       
          <View style = {{flex:2, flexDirection: 'row', justifyContent: 'space-around', marginTop: 30}}>
           <TouchableOpacity  activeOpacity={0.3} style = {{backgroundColor: 'rgba(141, 216, 239, 1)', borderRadius: 20, width: 85, height: 85, alignItems: 'center', justifyContent: 'center', marginBottom: 50}}  
-            onPress={() => {Alert.alert("맵")}}>
+            onPress={() => {Alert.alert("출시 대기중입니다.")}}>
                 <Text style= {{fontFamily: 'BMHANNAPro'}}>
                   지도
                   </Text>
@@ -220,10 +223,7 @@ function UnivInfo(route: any) {
 
     </View>
     </ScrollView>
-
-
   );
 }
-
 
 export default UnivInfo;

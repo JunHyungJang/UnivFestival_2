@@ -3,7 +3,7 @@ import React, {useCallback, useState} from 'react';
 import {Pressable, StyleSheet, Text, View, TextInput, FlatList, Alert, ScrollView, TouchableOpacity} from 'react-native';
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown';
 import { Button } from '@rneui/base';
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import {Input} from '@rneui/themed'
 import { onChange } from 'react-native-reanimated';
 import { NavigationContainer } from '@react-navigation/native';
@@ -96,7 +96,7 @@ function Boothmake(route: any) {
     
     
   return (
-    <ScrollView>
+    <KeyboardAwareScrollView>
       <View style={styles.inputWrapper}>
         <Text style={styles.label}>부스이름</Text>
         <TextInput
@@ -130,49 +130,58 @@ function Boothmake(route: any) {
         </Text>
       </View>
       <View style = {{borderWidth: 0.5, paddingLeft: 10, marginHorizontal: 25, marginBottom: 10}}/>
-
-      <View style = {{padding: 20, paddingLeft: 20, flexDirection: 'row', justifyContent: 'space-between', paddingRight: 180}}>
+      <View style = {{paddingRight: 120}}>
+      <View style = {{padding: 20, flexDirection: 'row', justifyContent: 'space-around'}}>
         <Text style = {{fontFamily: 'BMHANNAPro'}}>
           메뉴
         </Text>
-        <Text style = {{fontFamily: 'BMHANNAPro', paddingRight: 70 }}>
+        <Text style = {{fontFamily: 'BMHANNAPro'}}>
           가격
         </Text>
-        
       </View>
+      </View>
+
       <View style = {{flexDirection: 'column', justifyContent:'space-around'}}>
+      {/* <View style = {{flexDirection: 'column', justifyContent: 'space-around'}}> */}
       {myarray.map((item, index) => (
-        <View key = {index} style={{padding: 20,paddingLeft: 20, flexDirection: 'row', justifyContent: 'space-between'}}>
+        
+        <View key = {index} style={{ flexDirection: 'row', justifyContent: 'space-around', padding: 20}}>
         <TextInput
-        style={styles.textInput}
+        style={{flex: 1}}
         onChangeText={(newname) => onchangemyarray(index, newname)}
         placeholder="메뉴를 입력해주세요"
-        placeholderTextColor="#666"
-        value={item.name}
-        returnKeyType="next"
+        value={item.name}     
         clearButtonMode="while-editing"
+       
+        textContentType="name"
         blurOnSubmit={false}>
         </TextInput>
         <TextInput
-        style={styles.textInput}
+        style={{flex:1}}
         onChangeText={(newprice) => onchangemyarray2(index,newprice)}
         placeholder="가격을 입력해주세요"
-        placeholderTextColor="#666"
+        // placeholderTextColor="#666"
         value={item.price}
         returnKeyType="next"
         clearButtonMode="while-editing"
-        blurOnSubmit={false}>
+        textContentType="name"
         
+        blurOnSubmit={false}>
         </TextInput>
-        <Button  color = 'rgba(141, 216, 239, 1)'style =  {{marginRight: 50}}onPress={() =>ondeletearray(item.name)}>
+        <Button  color = 'rgba(141, 216, 239, 1)'style =  {{}}onPress={() =>ondeletearray(item.name)}>
         <Text style = {{fontFamily: 'BMHANNAPro'}}>
           메뉴삭제하기
         </Text>
       </Button>
         </View>
+        
       ))}
+       
+      {/* </View> */}
+      
+
     <View>
-      <View style = {{justifyContent: 'center', alignItems: 'center'}}>
+      <View style = {{justifyContent: 'center', alignItems: 'center', marginTop: 30}}>
       <TouchableOpacity  activeOpacity={0.3} style = {{backgroundColor: 'rgba(141, 216, 239, 1)', borderRadius: 20, width: 100, height: 50, alignItems: 'center', justifyContent: 'center', marginBottom: 50}}  
             onPress={() => onplusmenu()}>
                 <Text style= {{fontFamily: 'BMHANNAPro'}}>
@@ -188,10 +197,7 @@ function Boothmake(route: any) {
       </View>
       </View>
       </View>
-      {/* <Button onPress={()=> onsendarray()} >
-      보내기
-      </Button> */}
-    </ScrollView>
+    </KeyboardAwareScrollView>
   );
 }
 
@@ -199,6 +205,7 @@ const styles = StyleSheet.create({
   textInput: {
     padding: 5,
     borderBottomWidth: StyleSheet.hairlineWidth,
+  
   },
   inputWrapper: {
     padding: 20,

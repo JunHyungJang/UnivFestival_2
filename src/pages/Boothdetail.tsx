@@ -5,6 +5,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 function Boothdetail(route: any) {
     //로그인시 들어오는 거 가능
 
+    
     const name = route.route.params.booth.name;
     const info = route.route.params.booth.info;
     const menu = route.route.params.booth.menu;

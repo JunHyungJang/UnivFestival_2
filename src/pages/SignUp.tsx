@@ -56,18 +56,27 @@ function SignUp({navigation}: any) {
       return Alert.alert('알림', '대학교를 입력해주세요.');
     }
     console.log(email, name, password);
-    const response = await axios.post(`${Config.API_URL}/api/users/register`, {
+    axios.post(`${Config.API_URL}/api/users/register`, {
       email,
       name,
       password,
       univ,
-    });
-    if (response.data.success == true) {
-      Alert.alert('알림', '회원가입 성공적으로 되었습니다.');
-      navigation.navigate('SignIn');
-    } else if (response.data.success == false) {
+    }).then(response => {
+      if (response.data.success == true) {
+        Alert.alert('알림', '회원가입 성공적으로 되었습니다.');
+      } else if (response.data.success == false) {
       Alert.alert('알림', '회원가입이 실패하였습니다.');
-    }
+      }
+    }).catch(error => {
+      Alert.alert("알림", "중복된 이메일 입니다. ")
+    })
+    // console.log(response.data.success)
+    // if (response.data.success == true) {
+    //   Alert.alert('알림', '회원가입 성공적으로 되었습니다.');
+    //   navigation.navigate('SignIn');
+    // } else if (response.data.success == false) {
+    //   Alert.alert('알림', '회원가입이 실패하였습니다.');
+    // }
   }, [email, name, password]);
 
   const canGoNext = email && name && password && univ;
