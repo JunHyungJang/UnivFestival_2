@@ -185,7 +185,7 @@ function UnivInfo(route: any) {
       
          <View style = {{flex:2, flexDirection: 'row', justifyContent: 'space-around', marginTop: 30}}>
           <TouchableOpacity  activeOpacity={0.3} style = {{backgroundColor: 'rgba(141, 216, 239, 1)', borderRadius: 20, width: 85, height: 85, alignItems: 'center', justifyContent: 'center', marginBottom: 50}}  
-            onPress={() => {Alert.alert("맵")}}>
+            onPress={() => {Alert.alert("출시 대기중입니다.")}}>
                 <Text style= {{fontFamily: 'BMHANNAPro'}}>
                   지도
                   </Text>
@@ -223,10 +223,7 @@ function UnivInfo(route: any) {
 
     </View>
     </ScrollView>
-
-
   );
 }
-
 
 export default UnivInfo;
