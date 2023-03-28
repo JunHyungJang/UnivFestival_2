@@ -68,7 +68,7 @@ function Boothpage(route: any) {
               }
               else {
                 Alert.alert("로그인후 이용이 가능합니다");
-                route.navigation.navigation('SignUp');
+                route.navigation.navigate('SignUp');
               }
               }}>
       <Text style= {{fontFamily: 'BMHANNAPro'}}>
