@@ -64,6 +64,7 @@ function SignUp({navigation}: any) {
     }).then(response => {
       if (response.data.success == true) {
         Alert.alert('알림', '회원가입 성공적으로 되었습니다.');
+        navigation.navigate('SignIn');
       } else if (response.data.success == false) {
       Alert.alert('알림', '회원가입이 실패하였습니다.');
       }
