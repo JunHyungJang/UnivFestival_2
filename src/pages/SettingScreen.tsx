@@ -1,12 +1,52 @@
-import React, {useEffect, useState} from 'react';
+import axios, { AxiosError } from 'axios';
+import React, {useCallback, useEffect, useState} from 'react';
 import {StyleSheet, ScrollView, Text, View, Button, Alert, TouchableOpacity} from 'react-native';
+import Config from 'react-native-config';
+import EncryptedStorage from 'react-native-encrypted-storage';
 import {useSelector} from 'react-redux';
+import userSlice from '../slices/user';
+import { useAppDispatch } from '../store';
 import {RootState} from '../store/reducer';
 
 function SettingScreen({navigation}: any) {
   const name = useSelector((state: RootState) => state.user.name);
   const email = useSelector((state: RootState) => state.user.email);
   const univ = useSelector((state: RootState) => state.user.univ)
+  const accessToken = useSelector((state: RootState) => state.user.accessToken);
+  const dispatch = useAppDispatch();
+
+
+  const onLogout = useCallback(async () => {
+    
+      
+    try {
+      console.log('front logout');
+      await axios.post(`${Config.API_URL}/api/users/logout`, {
+        accessToken,
+      });
+      console.log("hellwoorld")
+      Alert.alert('알림', '로그아웃 되었습니다.');
+      dispatch(
+        userSlice.actions.setUser({
+          name: '',
+          email: '',
+          accessToken: '',
+        }),
+      );
+      await EncryptedStorage.removeItem('Token');
+    } catch (error) {
+      console.log("erroroccur")
+      const errorResponse = (error as AxiosError).response;
+      console.error(errorResponse);
+    }
+    // navigation.navigate("HomeScreen")
+  }, []);
+  const deleteaccount = useCallback(async ()=> {
+      axios.post(`${Config.API_URL}/api/users/deleteaccount`, {
+        email
+      })
+      onLogout()
+  },[])
 
   return (
     <View>
@@ -40,6 +80,21 @@ function SettingScreen({navigation}: any) {
           내 부스 관리하기
         </Text>
       </TouchableOpacity>
+      <TouchableOpacity activeOpacity={0.2} 
+        style = {{width:100, height: 40, backgroundColor: 'rgba(141, 216, 239, 1)', 
+        justifyContent: 'center', alignItems: 'center', borderRadius: 20}} 
+        onPress = {()=> Alert.alert(
+          '계정삭제',
+          '계정을 삭제하시겠습니까 ? ',
+          [
+            {text: '취소', onPress : () => console.log('취소 선택')},
+            {text: '확인', onPress : ()=> deleteaccount()}
+          ]
+        ) }>
+        <Text style = {{fontFamily: 'BMHANNAPro'}}>
+          계정 삭제하기
+        </Text>
+      </TouchableOpacity>
       </View>
       
 
@@ -49,3 +104,7 @@ function SettingScreen({navigation}: any) {
 }
 
 export default SettingScreen;
+function dispatch(arg0: { payload: any; type: "user/setUser"; }) {
+  throw new Error('Function not implemented.');
+}
+

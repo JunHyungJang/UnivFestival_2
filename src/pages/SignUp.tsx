@@ -43,6 +43,7 @@ function SignUp({navigation}: any) {
   }, []);
 
   const onSubmit = useCallback(async () => {
+    console.log(univ)
     if (!email || !email.trim()) {
       return Alert.alert('알림', '이메일을 입력해주세요.');
     }
@@ -52,7 +53,7 @@ function SignUp({navigation}: any) {
     if (!password || !password.trim()) {
       return Alert.alert('알림', '비밀번호를 입력해주세요.');
     }
-    if (!univ || !password.trim()) {
+    if (!univ ) {
       return Alert.alert('알림', '대학교를 입력해주세요.');
     }
     console.log(email, name, password);
