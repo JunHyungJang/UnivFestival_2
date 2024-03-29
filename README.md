@@ -4,7 +4,7 @@
 
 풀스택 개발을 통한 앱 개발 및 출시
 
-## 주요 기능
+## 화면
 
 
 <img src= "https://github.com/JunHyungJang/UnivFestival_2/assets/89409079/153d65fe-5cde-47de-a4a4-62334c7dba0f" width="100" height="300">
@@ -19,4 +19,20 @@
 <img src="https://github.com/JunHyungJang/UnivFestival_2/assets/89409079/fa805c51-4565-4e0d-9110-023c9f5a19db" width="100" height="300">
 
 <img src="https://github.com/JunHyungJang/UnivFestival_2/assets/89409079/be9f79a9-2953-4c4e-88c1-800d9f683e2e" width="100" height="300">
+
+
+## 기능
+
+1. 축제 검색 기능
+2. 동아리 주점 CRUD 기능
+3. 좋아요 기능
+
+
+## 사용기술
+
+백엔드 : Node.js(Express)
+
+데이터베이스 : MongoDB
+
+배포 : AWS EC2
 
